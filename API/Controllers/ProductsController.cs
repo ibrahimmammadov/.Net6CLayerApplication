@@ -12,14 +12,12 @@ namespace API.Controllers
     public class ProductsController : CBaseController
     {
         private readonly IMapper mapper;
-        private readonly IService<Product> service;
-        private readonly IProductService productService;
+        private readonly IProductService service;
 
-        public ProductsController(IMapper _mapper, IService<Product> _service, IProductService _productService)
+        public ProductsController(IMapper _mapper, IProductService _productService)
         {
             mapper = _mapper;
-            service = _service;
-            productService = _productService;
+            service = _productService;
         }
 
 
@@ -27,7 +25,7 @@ namespace API.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> GetProductWithCat()
         {
-            return CreatActionResult(await productService.GetProductWithCateg());
+            return CreatActionResult(await service.GetProductWithCateg());
         }
 
 
