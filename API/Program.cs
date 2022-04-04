@@ -1,5 +1,6 @@
 using API.Filters;
 using API.Middlewares;
+using Caching;
 using Core.Repositories;
 using Core.Services;
 using Core.UnitOfWorks;
@@ -24,13 +25,15 @@ builder.Services.Configure<ApiBehaviorOptions>(opt => opt.SuppressModelStateInva
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddMemoryCache();
+builder.Services.AddScoped(typeof(NotFoundFilter<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
 builder.Services.AddScoped(typeof(IService<>),typeof(Service<>));
 builder.Services.AddAutoMapper(typeof(MapProfile));
 
 builder.Services.AddScoped<IProductRepo, ProductRepo>();
-builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductService, ProductServiceCaching>();
 builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 

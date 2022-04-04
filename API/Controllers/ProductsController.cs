@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using API.Filters;
+using AutoMapper;
 using Core;
 using Core.DTOs;
 using Core.Services;
@@ -38,7 +39,7 @@ namespace API.Controllers
             return CreatActionResult(CResponseDto<List<ProductDto>>.Success(200,productdto));
         }
 
-
+        [ServiceFilter(typeof(NotFoundFilter<Product>))]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
