@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -11,9 +12,10 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220417000459_init2")]
+    partial class init2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,19 +51,19 @@ namespace Repository.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedDate = new DateTime(2022, 4, 18, 17, 56, 48, 514, DateTimeKind.Local).AddTicks(9957),
+                            CreatedDate = new DateTime(2022, 4, 17, 4, 4, 59, 568, DateTimeKind.Local).AddTicks(2126),
                             Name = "Cpu"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedDate = new DateTime(2022, 4, 18, 17, 56, 48, 514, DateTimeKind.Local).AddTicks(9967),
+                            CreatedDate = new DateTime(2022, 4, 17, 4, 4, 59, 568, DateTimeKind.Local).AddTicks(2135),
                             Name = "Motherboard"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedDate = new DateTime(2022, 4, 18, 17, 56, 48, 514, DateTimeKind.Local).AddTicks(9967),
+                            CreatedDate = new DateTime(2022, 4, 17, 4, 4, 59, 568, DateTimeKind.Local).AddTicks(2135),
                             Name = "Graphic Card"
                         });
                 });
@@ -105,7 +107,7 @@ namespace Repository.Migrations
                         {
                             Id = 1,
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2022, 4, 18, 17, 56, 48, 515, DateTimeKind.Local).AddTicks(455),
+                            CreatedDate = new DateTime(2022, 4, 17, 4, 4, 59, 568, DateTimeKind.Local).AddTicks(2528),
                             Name = "Msi B550 TomoHawk",
                             Price = 150m,
                             Stock = 41
@@ -114,7 +116,7 @@ namespace Repository.Migrations
                         {
                             Id = 2,
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2022, 4, 18, 17, 56, 48, 515, DateTimeKind.Local).AddTicks(457),
+                            CreatedDate = new DateTime(2022, 4, 17, 4, 4, 59, 568, DateTimeKind.Local).AddTicks(2530),
                             Name = "Gigabyte 560M Aorus Elite",
                             Price = 150m,
                             Stock = 41
@@ -123,7 +125,7 @@ namespace Repository.Migrations
                         {
                             Id = 3,
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2022, 4, 18, 17, 56, 48, 515, DateTimeKind.Local).AddTicks(459),
+                            CreatedDate = new DateTime(2022, 4, 17, 4, 4, 59, 568, DateTimeKind.Local).AddTicks(2535),
                             Name = "Asrock X570 Aqua",
                             Price = 354m,
                             Stock = 5
@@ -132,7 +134,7 @@ namespace Repository.Migrations
                         {
                             Id = 4,
                             CategoryId = 2,
-                            CreatedDate = new DateTime(2022, 4, 18, 17, 56, 48, 515, DateTimeKind.Local).AddTicks(462),
+                            CreatedDate = new DateTime(2022, 4, 17, 4, 4, 59, 568, DateTimeKind.Local).AddTicks(2535),
                             Name = "Asus Rog Series B450",
                             Price = 280m,
                             Stock = 35
@@ -141,7 +143,7 @@ namespace Repository.Migrations
                         {
                             Id = 5,
                             CategoryId = 3,
-                            CreatedDate = new DateTime(2022, 4, 18, 17, 56, 48, 515, DateTimeKind.Local).AddTicks(464),
+                            CreatedDate = new DateTime(2022, 4, 17, 4, 4, 59, 568, DateTimeKind.Local).AddTicks(2538),
                             Name = "Nvidia RTX 3060 Ti FE",
                             Price = 399m,
                             Stock = 260
@@ -150,7 +152,7 @@ namespace Repository.Migrations
                         {
                             Id = 6,
                             CategoryId = 3,
-                            CreatedDate = new DateTime(2022, 4, 18, 17, 56, 48, 515, DateTimeKind.Local).AddTicks(464),
+                            CreatedDate = new DateTime(2022, 4, 17, 4, 4, 59, 568, DateTimeKind.Local).AddTicks(2540),
                             Name = "XFX 6700XT SpeedSter",
                             Price = 580m,
                             Stock = 33
@@ -159,7 +161,7 @@ namespace Repository.Migrations
                         {
                             Id = 7,
                             CategoryId = 3,
-                            CreatedDate = new DateTime(2022, 4, 18, 17, 56, 48, 515, DateTimeKind.Local).AddTicks(467),
+                            CreatedDate = new DateTime(2022, 4, 17, 4, 4, 59, 568, DateTimeKind.Local).AddTicks(2540),
                             Name = "PowerColor 6800XT Red Devil",
                             Price = 980m,
                             Stock = 30
@@ -168,7 +170,7 @@ namespace Repository.Migrations
                         {
                             Id = 8,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2022, 4, 18, 17, 56, 48, 515, DateTimeKind.Local).AddTicks(469),
+                            CreatedDate = new DateTime(2022, 4, 17, 4, 4, 59, 568, DateTimeKind.Local).AddTicks(2543),
                             Name = "Intel i7 12700KF",
                             Price = 350m,
                             Stock = 3000
@@ -177,7 +179,7 @@ namespace Repository.Migrations
                         {
                             Id = 9,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2022, 4, 18, 17, 56, 48, 515, DateTimeKind.Local).AddTicks(472),
+                            CreatedDate = new DateTime(2022, 4, 17, 4, 4, 59, 568, DateTimeKind.Local).AddTicks(2545),
                             Name = "AMD Ryzen Threadripper PRO 3995",
                             Price = 6700m,
                             Stock = 199
@@ -186,7 +188,7 @@ namespace Repository.Migrations
                         {
                             Id = 10,
                             CategoryId = 1,
-                            CreatedDate = new DateTime(2022, 4, 18, 17, 56, 48, 515, DateTimeKind.Local).AddTicks(472),
+                            CreatedDate = new DateTime(2022, 4, 17, 4, 4, 59, 568, DateTimeKind.Local).AddTicks(2545),
                             Name = "AMD Ryzen 5600X",
                             Price = 299m,
                             Stock = 1200
@@ -258,6 +260,7 @@ namespace Repository.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("City")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 

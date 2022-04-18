@@ -1,0 +1,5 @@
+Api=> https://localhost:7171/
+Api=> http://localhost:5171
+
+Mvc=> https://localhost:7218/
+Mvc=> http://localhost:5218

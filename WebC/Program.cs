@@ -11,11 +11,14 @@ using Service.Services;
 using Service.Validate;
 using System.Reflection;
 using WebC.Filters;
+using WebC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<ProductDtoValid>());
+builder.Services.AddHttpClient<ProductApiService>(opt => opt.BaseAddress = new Uri(builder.Configuration["BaseUrl"]));
+builder.Services.AddHttpClient<CategoryApiService>(opt => opt.BaseAddress = new Uri(builder.Configuration["BaseUrl"]));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
 builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
@@ -27,7 +30,6 @@ builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 
-
 builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"),
     opt => opt.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name)));
 
@@ -36,10 +38,11 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
+    app.UseExceptionHandler("/Home/Error");
+
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-app.UseExceptionHandler("/Home/Error");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

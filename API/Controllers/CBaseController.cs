@@ -21,5 +21,14 @@ namespace API.Controllers
                 StatusCode = cResponseDto.StatusCode
             };
         }
+
+        [NonAction]
+        public IActionResult CreatActionResultForToken<T>(CResponseDto<T> cResponseDto)
+        {
+            return new ObjectResult(cResponseDto)
+            {
+                StatusCode = cResponseDto.StatusCode
+            };
+        }
     }
 }

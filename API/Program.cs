@@ -1,10 +1,14 @@
 using API.Filters;
 using API.Middlewares;
 using Caching;
+using Core;
+using Core.Configuration;
 using Core.Repositories;
 using Core.Services;
 using Core.UnitOfWorks;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Repository;
@@ -13,8 +17,8 @@ using Repository.UnitOfWorks;
 using Service.Mapping;
 using Service.Services;
 using Service.Validate;
+using SharedLibrary.Configurations;
 using System.Reflection;
-using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,11 +35,45 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped(typeof(IGenericRepo<>), typeof(GenericRepo<>));
 builder.Services.AddScoped(typeof(IService<>),typeof(Service<>));
 builder.Services.AddAutoMapper(typeof(MapProfile));
-
+builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IProductRepo, ProductRepo>();
 builder.Services.AddScoped<IProductService, ProductServiceCaching>();
 builder.Services.AddScoped<ICategoryRepo, CategoryRepo>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+builder.Services.AddIdentity<UserApp, IdentityRole>(Opt =>
+{
+    Opt.User.RequireUniqueEmail = true;
+    Opt.Password.RequireNonAlphanumeric = false;
+}).AddEntityFrameworkStores<AppDbContext>().AddDefaultTokenProviders();
+
+builder.Services.Configure<CustomTokenOption>(builder.Configuration.GetSection("TokenOption"));
+
+builder.Services.Configure<List<Client>>(builder.Configuration.GetSection("Clients"));
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, opts =>
+{
+    var tokenOptions = builder.Configuration.GetSection("TokenOption").Get<CustomTokenOption>();
+    opts.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+    {
+        ValidIssuer = tokenOptions.Issuer,
+        ValidAudience = tokenOptions.Audience[0],
+        IssuerSigningKey = SignService.GetSymmetricSecurityKey(tokenOptions.SecurityKey),
+
+        ValidateIssuerSigningKey = true,
+        ValidateAudience = true,
+        ValidateIssuer = true,
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero
+    };
+});
+
 
 builder.Services.AddDbContext<AppDbContext>(x => x.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"),
     opt => opt.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name)));
@@ -49,7 +87,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseUserCustomException();
+//app.UseUserCustomException();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
