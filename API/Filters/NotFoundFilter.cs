@@ -25,7 +25,7 @@ namespace API.Filters
                 await next.Invoke();
             }
 
-           var entity = await _service.AnyAsync(x=>x.Id==(int)id);
+            var entity = await _service.AnyAsync(x => x.Id == (int?)id);
             if (entity)
             {
                 await next.Invoke();

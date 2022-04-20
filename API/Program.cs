@@ -18,6 +18,7 @@ using Service.Mapping;
 using Service.Services;
 using Service.Validate;
 using SharedLibrary.Configurations;
+using SharedLibrary.Services;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -87,7 +88,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-//app.UseUserCustomException();
+app.UseUserCustomException();
 app.UseAuthentication();
 app.UseAuthorization();
 
